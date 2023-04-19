@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        // o jogador é solicitado a digitar uma palavra secreta, que é convertida em maiúsculas
+        let textoDigitado = prompt("digite uma palavra para iniciar o jogo").toUpperCase();
+
+        // e armazenada na variável "palavraSecreta".
+        let palavraSecreta = ""
+
+        // o comprimento da palavra é armazenado na variável "tamanhoPalavra"
+        let tamanhoPalavra = textoDigitado.length;
+
+        // três variáveis vazias são criadas para armazenar as letras já chutadas, letras erradas e letras corretas.
+        let letrasCorretas = "";
+        let letrasChutadas = "";
+        let letrasErradas = "";
+
+        //  array vazio que vai guardar os underline transformados no loop for
+        const underline = [];
+
+        // inicia a variável de tentativas que vai até 6
+        let tentativas = 0;
+
+        //array que vai receber os palpites do jogador
+        let letrasJaChutadas = []
+
+
+
+
+
+        // O código então entra em um loop "for" para criar uma string de underline "_" para cada letra na palavra secreta.
+        for (let i = 0; i < textoDigitado.length; i++) {
+
+            palavraSecreta += "_";
+
+        }
+
+
+
+        // Um loop "while" é usado para controlar as tentativas do jogador e o jogo continua até que o jogador acerte todas as letras
+        //  da palavra secreta ou atinja o número máximo de tentativas permitidas.
+        while (tentativas < 6) {
+            let palpite = prompt("palavra: " + palavraSecreta + " \ntentativas: " + tentativas + " \nletras Ja chutadas: " + letrasJaChutadas + " \ndigite uma letra").toUpperCase();
+
+            //  Se a letra já tiver sido chutada anteriormente, uma mensagem de alerta é exibida e o loop continua.
+            if (letrasJaChutadas.includes(palpite)) {
+                alert("essa letra já foi chuatada");
+                continue;
+            }
+
+
+            else if (palpite.length !== 1) {
+                alert("Por favor, insira só uma letra");
+                continue;
+            }
+
+            //  Caso contrário, a letra é adicionada à variável "letrasJaChutadas" para rastrear as letras já chutadas.
+            else {
+                letrasJaChutadas.push(palpite);
+                alert(letrasJaChutadas);
+            }
+
+            if (textoDigitado.includes(palpite)) {
+                tentativas--
+            }
+
+            // Verifica se a letra está na palavra a ser adivinhada
+            if (textoDigitado.includes(palpite)) {
+                // Substitui os asteriscos pela letra nas posições corretas
+                for (let i = 0; i < textoDigitado.length; i++) {
+                    if (textoDigitado[i] === palpite) {
+                        palavraSecreta = palavraSecreta.substring(0, i) + palpite + palavraSecreta.substring(i + 1);
+                    }
+                }
+
+
+                alert(`A letra ${palpite} está na palavra!`);
+            } else {
+
+                alert(`A letra ${palpite} não está na palavra!`);
+            }
+            if (tentativas < 6 && palavraSecreta === textoDigitado) {
+                break;
+            }
+
+
+
+            tentativas++
+        }
+
+        // Verifica se o jogador ganhou ou perdeu
+        if (tentativas < 6 && palavraSecreta === textoDigitado) {
+            alert(`Parabéns, você ganhou! A palavra era ${textoDigitado}.`);
+
+        } else {
+
+            alert(`Que pena, você perdeu! A palavra era ${textoDigitado}.`);
+        }
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
